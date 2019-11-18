@@ -25,7 +25,7 @@ export class PlanNew {
     constructor(private _router: Router, private _planService: PlanService, private _sqlService: SqlService) { }
 
     submitPlan() {
-      
+
       this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
         // remove psql generated header
         this.newPlanContent = this.newPlanContent.replace('QUERY PLAN=', '');
@@ -40,13 +40,13 @@ export class PlanNew {
         this._router.navigate(['PlanView', { id: this.newPlan.id }]);
     }
 
-    prefill() {
+    /*prefill() {
         this.newPlanName = 'Sample plan';
         this.newPlanQuery = "select * from test;"
         this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
         //this.queryURL = this.queryURL + this.newPlanQuery;
         //this.http.get<string>(this.queryURL).subscribe(res => this.newPlanContent = res.text());
-    }
+    }*/
 }
 export var SAMPLE_JSON = `[
   {
