@@ -25,6 +25,8 @@ export class PlanNew {
     constructor(private _router: Router, private _planService: PlanService, private _sqlService: SqlService) { }
 
     submitPlan() {
+      
+      this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
         // remove psql generated header
         this.newPlanContent = this.newPlanContent.replace('QUERY PLAN=', '');
         this.newPlanContent = this.newPlanContent.slice(2, this.newPlanContent.length - 2);

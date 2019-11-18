@@ -5,8 +5,6 @@ import {PlanView} from '../plan-view/plan-view';
 import {PlanList} from '../plan-list/plan-list';
 import {PlanNew} from '../plan-new/plan-new';
 import {About} from '../about/about';
-import {HTTP_PROVIDERS} from 'angular2/http';
-import 'rxjs/Rx';
 
 @Component({
     selector: 'app',
