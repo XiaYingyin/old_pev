@@ -7,7 +7,6 @@ import {PlanService} from '../../services/plan-service';
 import {SyntaxHighlightService} from '../../services/syntax-highlight-service';
 import {HelpService} from '../../services/help-service';
 import {ColorService} from '../../services/color-service';
-import { SqlService } from '../../services/sql-service';
 
 /// <reference path="lodash.d.ts" />
 
@@ -16,7 +15,7 @@ import { SqlService } from '../../services/sql-service';
     inputs: ['plan', 'node', 'viewOptions'],
     templateUrl: './components/plan-node/plan-node.html',
     directives: [PlanNode],
-    providers: [PlanService, SyntaxHighlightService, HelpService, ColorService, SqlService],
+    providers: [PlanService, SyntaxHighlightService, HelpService, ColorService],
     pipes: [DurationPipe, DurationUnitPipe]
 })
 

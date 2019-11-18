@@ -7,13 +7,12 @@ import {PlanNode} from '../plan-node/plan-node';
 import {PlanService} from '../../services/plan-service';
 import {SyntaxHighlightService} from '../../services/syntax-highlight-service';
 import {DurationPipe, DurationUnitPipe} from '../../pipes';
-import { SqlService } from '../../services/sql-service';
 
 @Component({
     selector: 'plan-view',
     templateUrl: './components/plan-view/plan-view.html',
     directives: [ROUTER_DIRECTIVES, PlanNode],
-    providers: [PlanService, SyntaxHighlightService, SqlService],
+    providers: [PlanService, SyntaxHighlightService],
     pipes: [DurationPipe, DurationUnitPipe]
 })
 export class PlanView {

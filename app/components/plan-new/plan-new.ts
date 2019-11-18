@@ -1,53 +1,50 @@
-import {Component, OnInit} from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import { Component, OnInit } from 'angular2/core';
+import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Http, Response } from 'angular2/http';
-import {IPlan} from '../../interfaces/iplan';
+import { IPlan } from '../../interfaces/iplan';
 
-import {PlanService} from '../../services/plan-service';
+import { PlanService } from '../../services/plan-service';
 import { Observable } from 'rxjs/Observable';
 import { resolve } from 'url';
-import {SqlService} from '../../services/sql-service';
+import { SqlService } from '../../services/sql-service';
 
 @Component({
-    selector: 'plan-new',
-    templateUrl: './components/plan-new/plan-new.html',
-    providers: [PlanService, SqlService],
-    directives: [ROUTER_DIRECTIVES]
+  selector: 'plan-new',
+  templateUrl: './components/plan-new/plan-new.html',
+  providers: [PlanService, SqlService],
+  directives: [ROUTER_DIRECTIVES]
 })
+
 export class PlanNew {
-    planIds: string[];
-    newPlanName: string;
-    newPlanContent: string;
-    newPlanQuery: string;
-    newPlan: IPlan;
-    validationMessage: string;
-    
-    constructor(private _router: Router, private _planService: PlanService, private _sqlService: SqlService) { }
+  planIds: string[];
+  newPlanName: string;
+  newPlanContent: string;
+  newPlanQuery: string;
+  newPlan: IPlan;
+  validationMessage: string;
 
-    submitPlan() {
+  constructor(private _router: Router, private _planService: PlanService, private _sqlService: SqlService) { }
 
-      this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
-        // remove psql generated header
-        this.newPlanContent = this.newPlanContent.replace('QUERY PLAN=', '');
-        this.newPlanContent = this.newPlanContent.slice(2, this.newPlanContent.length - 2);
+  submitPlan() {
+    this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
+    // TODO: wait to get query plan
 
-        if (!this._planService.isJsonString(this.newPlanContent)) {
-            this.validationMessage = 'The string you submitted is not valid JSON'
-            return;
-        }
+    // remove psql generated header
+    if (this.newPlanContent != null) {
+      this.newPlanContent = this.newPlanContent.replace('QUERY PLAN=', '');
+      this.newPlanContent = this.newPlanContent.slice(2, this.newPlanContent.length - 2);
 
-        this.newPlan = this._planService.createPlan(this.newPlanName, this.newPlanContent, this.newPlanQuery);
-        this._router.navigate(['PlanView', { id: this.newPlan.id }]);
+      if (!this._planService.isJsonString(this.newPlanContent)) {
+        this.validationMessage = 'The string you submitted is not valid JSON'
+        return;
+      }
+
+      this.newPlan = this._planService.createPlan(this.newPlanName, this.newPlanContent, this.newPlanQuery);
+      this._router.navigate(['PlanView', { id: this.newPlan.id }]);
     }
-
-    /*prefill() {
-        this.newPlanName = 'Sample plan';
-        this.newPlanQuery = "select * from test;"
-        this._sqlService.getQueryPlan(this.newPlanQuery).subscribe(res => this.newPlanContent = res);
-        //this.queryURL = this.queryURL + this.newPlanQuery;
-        //this.http.get<string>(this.queryURL).subscribe(res => this.newPlanContent = res.text());
-    }*/
+  }
 }
+
 export var SAMPLE_JSON = `[
   {
     "Plan": {

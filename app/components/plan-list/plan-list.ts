@@ -6,12 +6,11 @@ import {PlanService} from '../../services/plan-service';
 import {PlanNew} from '../plan-new/plan-new';
 
 import {MomentDatePipe} from '../../pipes';
-import { SqlService } from '../../services/sql-service';
 
 @Component({
     selector: 'plan-list',
     templateUrl: './components/plan-list/plan-list.html',
-    providers: [PlanService, SqlService],
+    providers: [PlanService],
     directives: [ROUTER_DIRECTIVES, PlanNew],
     pipes: [MomentDatePipe]
 })
